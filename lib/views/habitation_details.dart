@@ -38,28 +38,31 @@ class _HabitationDetailsState extends State<HabitationDetails> {
             child: Text(widget._habitation.adresse),
           ),
           HabitationFeaturesWidget(widget._habitation),
-            Container(
-            margin: EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Text(
-                  "Inclus",
-                  style: LocationTextStyle.subTitleboldTextStyle,
+            if(widget._habitation.options.isNotEmpty)(
+              Container(
+                margin: EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Text(
+                      "Inclus",
+                      style: LocationTextStyle.subTitleboldTextStyle,
+                    ),
+                    Expanded(
+                        child: Container(
+                          margin: EdgeInsets.only(left: 10.0 ,right: 10.0),
+                          child: Divider(
+                            height: 36,
+                            thickness: 1,
+                          ),
+                        )
+                    ),
+                  ],
                 ),
-                Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(left: 10.0 ,right: 10.0),
-                      child: Divider(
-                        height: 36,
-                        thickness: 1,
-                      ),
-                    )
-                ),
-              ],
+              )
             ),
-          ),
             _buildItem(),
-            Container(
+            if(widget._habitation.optionpayantes.isNotEmpty)(
+              Container(
               margin: EdgeInsets.all(8.0),
               child: Row(
                 children: [
@@ -78,6 +81,7 @@ class _HabitationDetailsState extends State<HabitationDetails> {
                   ),
                 ],
               ),
+            )
             ),
             _buildOptionsPayantes(),
             _buildRentButton(),
@@ -152,7 +156,7 @@ class _HabitationDetailsState extends State<HabitationDetails> {
     return Wrap(
         spacing: 2.0,
         children: Iterable.generate(
-            widget._habitation.options.length,
+            widget._habitation.optionpayantes.length,
                 (i) => Container(
                 margin: EdgeInsets.all(2.0),
                 padding: EdgeInsets.only(left: 15.0),
