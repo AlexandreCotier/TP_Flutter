@@ -37,4 +37,21 @@ class LocationTextStyle{
     fontWeight: FontWeight.bold,
     fontSize: 16
   );
+
+  static final calendarDateTextStyle = baseTextStyle.copyWith(
+      color: Colors.indigo.shade800,
+      fontWeight: FontWeight.bold,
+      fontSize: 16
+  );
+
+  static final totalPriceTextStyle = baseTextStyle.copyWith(
+    color: Colors.indigo.shade800,
+    fontSize: 20,
+  );
+
+  static final rentTextStyle = baseTextStyle.copyWith(
+    color: Colors.white,
+    fontSize: 20,
+  );
+
 }

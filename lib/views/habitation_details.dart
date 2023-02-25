@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:location/share/location_style.dart';
 import 'package:location/share/location_text_style.dart';
+import 'package:location/views/resa_location.dart';
 import 'package:location/views/share/habitation_features_widget.dart';
 import 'package:location/views/share/habitation_option.dart';
 import '../models/habitation.dart';
@@ -139,7 +140,10 @@ class _HabitationDetailsState extends State<HabitationDetails> {
             margin: EdgeInsets.symmetric(horizontal: 8.0),
             child: ElevatedButton(
               onPressed: () {
-                print('Louer habitation');
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ResaLocation(widget._habitation)),
+                );
               },
               child: Text('Louer'),
             ),

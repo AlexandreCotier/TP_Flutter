@@ -5,8 +5,15 @@ import 'package:location/models/habitation.dart';
 import 'package:location/services/habitation_service.dart';
 import 'package:location/share/location_style.dart';
 import 'package:location/share/location_text_style.dart';
+import 'package:location/views/bottom_navigation_bar_widget.dart';
 import 'package:location/views/habitation_details.dart';
 import 'package:location/views/habitation_list.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:location/views/location_list.dart';
+import 'package:location/views/profil.dart';
+import 'package:location/views/validation_location.dart';
+import 'package:location/views/bottom_navigation_bar_widget.dart';
+import 'views/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,6 +31,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'Mes locations'),
+      routes: {
+        Profil.routeName: (context) => const Profil(),
+        LoginPage.routeName: (context) => const LoginPage(),
+        LocationList.routeName: (context) => LocationList(),
+        ValidationLocation.routeName: (context) => const ValidationLocation(),
+      },
+      localizationsDelegates: const [GlobalMaterialLocalizations.delegate],
+      supportedLocales: const [Locale('en'), Locale('fr')],
     );
   }
 }
@@ -43,6 +58,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: BottomNavigationBarWidget(0),
       appBar: AppBar(
         title: Text(title),
       ),

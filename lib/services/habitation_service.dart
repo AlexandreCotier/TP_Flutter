@@ -37,4 +37,8 @@ class HabitationService {
   List<Habitation> getAppartements(){
     return _getHabitations(isHouse: false);
   }
+
+  Habitation getHabitationById(int id){
+    return _habitations.firstWhere((element) => element.id == id);
+  }
 }
