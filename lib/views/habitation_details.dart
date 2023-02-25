@@ -29,10 +29,10 @@ class _HabitationDetailsState extends State<HabitationDetails> {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(20.0),
-            child: Image.asset(
-              'assets/images/locations/${widget._habitation.image}',
+            child: Image.network(
+              'http://192.168.1.44:8888/static/images/locations/${widget._habitation.image}',
               fit: BoxFit.fitWidth,
-              )
+            ),
             ),
           Container(
             margin: EdgeInsets.all(8.0),

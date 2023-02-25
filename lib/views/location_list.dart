@@ -10,20 +10,24 @@ import '../share/location_text_style.dart';
 import 'bottom_navigation_bar_widget.dart';
 
 class LocationList extends StatefulWidget {
-  static String routeName = '/location_list';
-  final LocationService service = LocationService();
-  final HabitationService habitationService = HabitationService();
-  late List<Location> _locations;
-  LocationList({Key? key}) : super(key: key){
-    _locations = service.getLocations();
-  }
-
+  static String routeName = '/locations';
+  const LocationList({Key? key}) : super(key: key);
 
   @override
   State<LocationList> createState() => _LocationListState();
 }
 
 class _LocationListState extends State<LocationList> {
+  final LocationService service = LocationService();
+  final HabitationService habitationService = HabitationService();
+  late Future<List<Location>> _locations;
+
+  @override
+  void initState(){
+    super.initState();
+    _locations = service.getLocations();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,15 +36,36 @@ class _LocationListState extends State<LocationList> {
         title: Text('Mes locations'),
       ),
       body: Center(
-        child: ListView.builder(
-          itemCount: widget._locations.length,
-          itemBuilder: (context, index) =>
-              _buildRow(widget._locations[index], context),
-          itemExtent: 180,
-        ),
-      ),
+        child: FutureBuilder<List<Location>>(
+          future: _locations,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final locations = snapshot.data!;
+              return ListView.builder(
+                itemCount: locations.length,
+                itemBuilder: (context, index) =>
+                _buildRow(locations[index], context),
+                itemExtent: 180,
+                );
+      } else if (snapshot.hasError) {
+        return Text('${snapshot.error}');
+      } else {
+        return CircularProgressIndicator();
+      }
+    },
+      )
+    )
     );
   }
+
+  //Center(
+  //child: ListView.builder(
+  //itemCount: widget._locations.length,
+  //itemBuilder: (context, index) =>
+  //_buildRow(widget._locations[index], context),
+  //itemExtent: 180,
+  //),
+  //),
 
   _buildRow(Location location, BuildContext context){
     return Container(
@@ -56,7 +81,7 @@ class _LocationListState extends State<LocationList> {
   }
 
   _buildResume(Location location) {
-    Habitation habitation = widget.habitationService.getHabitationById(location.idhabitation);
+    Habitation habitation = habitationService.getHabitationById(location.idhabitation);
     var format = NumberFormat("### €");
     return Container(
       child: Column(
